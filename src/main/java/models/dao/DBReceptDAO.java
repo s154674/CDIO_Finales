@@ -1,7 +1,6 @@
 package models.dao;
 
 import models.DALException;
-import models.connector.OldConnector;
 import models.connector.ImprovedConnector;
 import models.dao.interfaces.IReceptDAO;
 import models.dto.ReceptDTO;

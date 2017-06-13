@@ -1,11 +1,9 @@
 package models.test;
 
 import models.DALException;
-import models.connector.OldConnector;
 import models.dao.*;
 import models.dto.*;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,11 +14,6 @@ public class Main {
     private static int ec = 0; //Exceptions thrown counter
 
     public static void main(String[] args) {
-        try {new OldConnector();}
-        catch (InstantiationException e) {e.printStackTrace();}
-        catch (IllegalAccessException e) {e.printStackTrace();}
-        catch (ClassNotFoundException e) {e.printStackTrace();}
-        catch (SQLException e) {e.printStackTrace();}
 
         testDBBrugerDAO();
         testDBProduktBatchDAO();

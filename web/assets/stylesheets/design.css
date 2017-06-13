@@ -1,0 +1,71 @@
+/* IKONER */
+#user-icon {
+    font-size: 27px;
+    color:#737171;
+}
+.delete-icon {
+    color: red;
+}
+.edit-icon {
+    color: blue;
+}
+
+.open-icon{
+    color: green;
+}
+
+/* DESIGN */
+#main {
+    margin-top: 20px;
+}
+
+.Administrator, .Farmaceut, .Vaerkfoerer, .Laborant {
+    display: none;
+}
+
+
+
+#bruger-administration h2, #bruger-administration p{
+    display: inline;
+}
+
+.Administrator th{
+    background-color: #1779ba;
+    color: white;}
+
+.Farmaceut th{
+    background-color: #767676;
+    color: white;}
+
+.Vaerkfoerer th{
+    background-color: #3adb76;
+    color: white;}
+
+.Laborant th{
+    background-color: #ffae00;
+    color: white;}
+
+
+#bruger-vis tbody tr td:nth-last-child(1), #bruger-vis tbody tr td:nth-last-child(2){
+    text-align: center;
+    font-size: 25px;
+}
+
+
+
+#raavare-administration h2, #raavare-administration p,
+#recept-administration h2, #recept-administration p,
+#raavarebatch-administration h2, #raavarebatch-administration p,
+#produktbatch-administration h2, #produktbatch-administration p,
+#receptkomponent-administration h2, #receptkomponent-administration p{
+    display: inline;
+}
+
+#raavare-vis-tabel tbody tr td:nth-last-child(1), #raavare-vis-tabel tbody tr td:nth-last-child(2),
+#recept-vis-tabel tbody tr td:nth-last-child(1), #recept-vis-tabel tbody tr td:nth-last-child(2), #recept-vis-tabel tbody tr td:nth-last-child(3),
+#raavarebatch-vis-tabel tbody tr td:nth-last-child(1), #raavarebatch-vis-tabel tbody tr td:nth-last-child(2),
+#produktbatch-vis-tabel tbody tr td:nth-last-child(1), #produktbatch-vis-tabel tbody tr td:nth-last-child(2),
+#receptkomponent-vis-tabel tbody tr td:nth-last-child(1), #receptkomponent-vis-tabel tbody tr td:nth-last-child(2){
+    text-align: center;
+    font-size: 25px;
+}

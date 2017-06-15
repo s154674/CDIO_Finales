@@ -41,6 +41,9 @@ public class WeightController implements Runnable {
                 //Produktbatch ID og OK
                 pb_id = askForId("Indtast Produktbatch ID");
                 pbdto = produktBatchDao.getProduktBatch(pb_id);
+                if (pbdto.getStatus() != 0) {
+                    throw new CancelException("Produktbatch ikke klar");
+                }
                 rdto = receptDao.getRecept(pbdto.getReceptId());
                 awaitOk(rdto.getReceptNavn() + "?");
 
@@ -54,59 +57,59 @@ public class WeightController implements Runnable {
                 List<ProduktBatchKompDTO> produktbatchKomponenter = null;
 
                 receptKomponenter = receptKompDao.getReceptKompList(rdto.getReceptId());
-                List<RaavareDTO> raavarer = new ArrayList<RaavareDTO>();
+                int rbid;
+                double tara;
+                double netto;
+                ProduktBatchKompDTO afvejning;
+                RaavareDTO raavare;
                 for (ReceptKompDTO receptKompDTO : receptKomponenter) {
-                    raavarer.add(raavareDao.getRaavare(receptKompDTO.getRaavareId()));
+                    awaitOk("Stil beholder");
+                    Thread.sleep(100);
 
-                    int rbid;
-                    double tara;
-                    double netto;
-                    ProduktBatchKompDTO afvejning;
-                    boolean placed;
-                    for (ReceptKompDTO receptKompDTOto : receptKomponenter) {
-                        awaitOk("Stil beholder");
+                    tara = sCommand(); //Vægten af beholderen
+                    tara();
+                    Thread.sleep(100);
+
+
+                    //double min = receptKompDTO.getNomNetto()-(receptKompDTOto.getTolerance()*receptKompDTO.getNomNetto());
+                    //double max = receptKompDTO.getNomNetto()+(receptKompDTOto.getTolerance()*receptKompDTO.getNomNetto());
+                    //For at gøre testing nemmere har jeg lavet min og max til det her istedet.
+                    double min = 0.0;
+                    double max = 5.0;
+                    raavare = raavareDao.getRaavare(receptKompDTO.getRaavareId());
+                    awaitOk(receptKompDTO.getNomNetto() + "g af " + raavare.getRaavareNavn()); //TODO Hvad og hvormeget skal tilføjes
+                    do {
+                    rbid = askForId("Indtast RBID");
+                    } while (raavareBatchDao.getRaavareBatch(rbid).getRaavareId()!=raavare.getRaavareId());
+
+                    do {
+                        som.setMessage("K 3");
+                        Thread.sleep(100);
+                        await4K();
+                        Thread.sleep(100);
+                        som.setMessage("K 1");
                         Thread.sleep(100);
 
-                        tara = sCommand(); //Vægten af beholderen
-                        tara();
-                        Thread.sleep(100);
+                        netto = sCommand();
 
-                        rbid = askForId("Indtast RBID");
-                        //double min = receptKompDTO.getNomNetto()-(receptKompDTOto.getTolerance()*receptKompDTO.getNomNetto());
-                        //double max = receptKompDTO.getNomNetto()+(receptKompDTOto.getTolerance()*receptKompDTO.getNomNetto());
-                        //For at gøre testing nemmere har jeg lavet min og max til det her istedet.
-                        double min = 0.0;
-                        double max = 5.0;
-                        String raavarenavn = "" + raavareDao.getRaavare(receptKompDTO.getRaavareId()).getRaavareNavn();
-                        awaitOk(receptKompDTO.getNomNetto()+"g af " + raavarenavn); //TODO Hvad og hvormeget skal tilføjes
-                        do {
-                            som.setMessage("K 3");
-                            Thread.sleep(100);
-                            await4K();
-                            Thread.sleep(100);
-                            som.setMessage("K 1");
-                            Thread.sleep(100);
+                        if (min > netto || max < netto) {
+                            awaitOk("Proev igen");
+                        }
+                    } while (min > netto || max < netto);
 
-                            netto = sCommand();
+                    //Opretter PBK'en
+                    Thread.sleep(100);
+                    afvejning = new ProduktBatchKompDTO(pbdto.getPbId(), rbid, tara, netto, bruger_id);
+                    Thread.sleep(100);
+                    //TODO Der skal være noget der holde styr på om der ligger noget i forvejen, for ikke at få DALexception
+                    produktBatchKompDao.createProduktBatchKomp(afvejning);
 
-                            if (min > netto || max < netto) {
-                                awaitOk("Proev igen");
-                            }
-                        } while (min > netto || max < netto);
-
-                        //Opretter PBK'en
-                        Thread.sleep(100);
-                        afvejning = new ProduktBatchKompDTO(pbdto.getPbId(), rbid, tara, netto, bruger_id);
-                        Thread.sleep(100);
-                        //TODO Der skal være noget der holde styr på om der ligger noget i forvejen, for ikke at få DALexception
-                        produktBatchKompDao.createProduktBatchKomp(afvejning);
-
-                        awaitOk("PBK Oprettet");
-                    }
-                    pbdto.setStatus(2);
-                    awaitOk("PB Faerdigt");
-                    break;
+                    awaitOk("PBK Oprettet");
                 }
+                pbdto.setStatus(2);
+                produktBatchDao.updateProduktBatch(pbdto.getPbId(),pbdto);
+                awaitOk("PB Faerdigt");
+
             } catch (DALException e) {
                 errorMSG("Data fejl, proev igen");
                 som.setMessage("K 1");
@@ -122,7 +125,7 @@ public class WeightController implements Runnable {
 
     private void awaitOk(String txt) throws CancelException {
         boolean accepted;
-        som.setMessage("RM20 3 \"" +txt+ "\" \"\" \"\"");
+        som.setMessage("RM20 3 \"" + txt + "\" \"\" \"\"");
         accepted = false;
 
         do {
@@ -144,7 +147,7 @@ public class WeightController implements Runnable {
 
     private int askForId(String txt) throws CancelException {
         //TODO Hvis man ikke for et tal skal det håndteres
-        int id =0;
+        int id = 0;
         boolean accepted;
         som.setMessage("RM20 3 \"" + txt + "\" \"\" \"\"");
         accepted = false;
@@ -173,7 +176,7 @@ public class WeightController implements Runnable {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {/*Denne er tom med vilje */}
-            if (sim.getMessage().equals("K C 4")){
+            if (sim.getMessage().equals("K C 4")) {
                 fourk = true;
             }
         } while (!fourk);
@@ -204,7 +207,8 @@ public class WeightController implements Runnable {
             if (sim.getMessage().split(" ")[0].equals("S") && sim.getMessage().split(" ")[1].equals("S")) {
                 temp = Double.parseDouble(sim.getMessage().substring(9, 14));
                 sim.setMessage("");
-                weightRegistered = true;}
+                weightRegistered = true;
+            }
         } while (!weightRegistered);
         return temp;
     }
@@ -212,7 +216,7 @@ public class WeightController implements Runnable {
     private void errorMSG(String txt) {
         boolean accepted;
         System.out.println(txt);
-        som.setMessage("RM20 3 \"" +txt+ "\" \"\" \"\"");
+        som.setMessage("RM20 3 \"" + txt + "\" \"\" \"\"");
         accepted = false;
 
         do {

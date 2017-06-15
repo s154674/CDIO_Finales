@@ -1,3 +1,4 @@
+// Dette er en redigeret client tager fra stackoverflow.com
 package controllers.Weight;
 
 import java.io.BufferedReader;

@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Frederik on 15-06-2017.
  */
-public class ReceptDTOUnitTest {
+public class ReceptUnitTest {
 
     private ImprovedConnector conn = new ImprovedConnector();
     private ReceptDTO testReceptDTO = new ReceptDTO(5, "Meat");

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Frederik on 14-06-2017.
  */
-public class ProduktBatchKompDAOTest {
+public class ProduktBatchKompUnitTest {
 
     private DBProduktBatchKompDAO testPBK_DAO;
     private ProduktBatchKompDTO testPBK_DTO;

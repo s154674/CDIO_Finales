@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Frederik on 14-06-2017.
  */
-public class BrugerDAOUnitTest {
+public class BrugerUnitTest {
     private ImprovedConnector conn = new ImprovedConnector();
     private DBBrugerDAO testOprDAO;
     private List<String> roller = Arrays.asList("Pharmaseut","Værkfører", "Laborant");

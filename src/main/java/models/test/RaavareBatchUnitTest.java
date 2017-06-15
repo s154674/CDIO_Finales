@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Frederik on 15-06-2017.
  */
-public class RaavareBatchDTOTest {
+public class RaavareBatchUnitTest {
     private ImprovedConnector conn = new ImprovedConnector();
     private DBRaavareBatchDAO testRB_DAO = new DBRaavareBatchDAO();
     private RaavareBatchDTO testRB_DTO = new RaavareBatchDTO(8,2,3);

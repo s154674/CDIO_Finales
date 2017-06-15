@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Frederik on 14-06-2017.
  */
-public class ProduktBatchDAOUnitTest {
+public class ProduktBatchUnitTest {
 
     private ImprovedConnector conn = new ImprovedConnector();
     private ProduktBatchDTO testPB_DTO;

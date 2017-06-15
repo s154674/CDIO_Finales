@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Frederik on 15-06-2017.
  */
-public class ReceptKompDTOUnitTest {
+public class ReceptKompUnitTest {
 
     private ImprovedConnector conn = new ImprovedConnector();
     private DBReceptKompDAO testRK_DAO = new DBReceptKompDAO();

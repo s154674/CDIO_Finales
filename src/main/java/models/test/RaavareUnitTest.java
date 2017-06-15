@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * Created by Frederik on 13-06-2017.
  */
 
-public class RaavareDAOUnitTest {
+public class RaavareUnitTest {
     private RaavareDTO testRaavareDTO;
     private ImprovedConnector conn = new ImprovedConnector();
     private DBRaavareDAO testRaavareDAO;

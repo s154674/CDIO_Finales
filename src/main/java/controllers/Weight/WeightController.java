@@ -103,6 +103,7 @@ public class WeightController implements Runnable {
 
                         awaitOk("PBK Oprettet");
                     }
+                    pbdto.setStatus(2);
                     awaitOk("PB Faerdigt");
                     break;
                 }

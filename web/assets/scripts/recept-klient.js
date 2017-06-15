@@ -89,7 +89,15 @@ receptNyFormular.submit(function(event ) {
 receptVisTabel.on('click', "tr td .open-icon", function (event) {
     event.preventDefault();
     row =  $(this).parents("tr");
-    console.log($(this));
+    recept = {"receptId":row.children("td").eq(0).html(), "receptNavn":row.children("td").eq(1).html()};
+
+    $("#recept-receptkomponent-receptnavn").html(recept.receptNavn);
+    $("#recept-receptkomponent-vis-grid").empty();
+    $.each(window.receptkomponenter.filter(function(rk){return rk.receptId === parseInt(recept.receptId)}), function(i, receptkomponent){
+        raavareNavn = window.raavarer.filter(function(rv){return rv.raavareId === receptkomponent.raavareId})[0].raavareNavn;
+        block = "<div class='column column-block'><div class='callout secondary'><div style='height: 24px;'> <a href='#' class='float-right delete-icon'><i class='fi-x'></i></a><a href='#' class='float-right edit-icon'><i class='fi-pencil'></i></a></div><h5>"+raavareNavn+"</h5><form action='rest/receptkomponenter/{receptId}+{raavareId}'><input name='receptId' type='hidden' value='"+receptkomponent.receptId+"'> <input name='raavareId' type='hidden' value='"+receptkomponent.raavareId+"'> <label>Vægt: <div class='input-group'><input name='nomNetto' class='input-group-field' type='number' value='"+receptkomponent.nomNetto+"' readonly /><span class='input-group-label'>G</span></div> </label> <label>Tolerance: <div class='input-group'><input name='tolerance' class='input-group-field' type='number' value='"+receptkomponent.tolerance+"' readonly /><span class='input-group-label'>%</span></div> </label><input type='submit' class='button expanded success' value='Opdater'></form></div></div>";
+        $("#recept-receptkomponent-vis-grid").append(block);
+    });
 });
 
 // Tryk på redigér knappen

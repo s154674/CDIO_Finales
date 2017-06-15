@@ -8,13 +8,20 @@ import java.sql.Statement;
 
 /** @author Ronnie Dalsgaard */
 public class ImprovedConnector {
+
+    static ImprovedConnector conn = new ImprovedConnector();
+
     private final String HOST     = Constant.server;
     private final int    PORT     = Constant.port;
     private final String DATABASE = Constant.database;
     private final String USERNAME = Constant.username;
     private final String PASSWORD = Constant.password;
     private Connection connection;
-    
+
+    public static ImprovedConnector getConnI(){
+        return ImprovedConnector.conn;
+    }
+
     public ImprovedConnector() {
         try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -22,6 +29,7 @@ public class ImprovedConnector {
 			connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+
 			System.exit(1);
 		}
     }

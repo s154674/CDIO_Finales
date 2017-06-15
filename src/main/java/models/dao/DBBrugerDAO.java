@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Johan on 07-06-2017.
  */
 public class DBBrugerDAO implements IBrugerDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
 
     @Override
     public BrugerDTO getBruger(int brugerId) throws DALException {

@@ -6,7 +6,6 @@ package controllers.security;
 import com.google.common.net.HttpHeaders;
 import io.jsonwebtoken.Jwts;
 import models.DALException;
-import models.dao.BrugerDAO;
 import models.dao.DBBrugerDAO;
 import models.dao.interfaces.IBrugerDAO;
 

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Johan on 07-06-2017.
  */
 public class DBProduktBatchKompDAO implements IProduktBatchKompDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
     @Override
     public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws DALException {
         try {

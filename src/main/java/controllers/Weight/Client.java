@@ -1,3 +1,4 @@
+// Dette er en redigeret client tager fra stackoverflow.com
 package controllers.Weight;
 
 import java.io.BufferedReader;
@@ -17,7 +18,7 @@ public class Client implements Runnable {
         try {
             t1 = new Thread(this);
             t2 = new Thread(this);
-            socket = new Socket("169.254.2.2", 8000);
+            socket = new Socket("169.254.2.3", 8000);
             this.sim = sim;
             this.som = som;
             t1.start();

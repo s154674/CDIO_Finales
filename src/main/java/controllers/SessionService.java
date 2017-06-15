@@ -10,7 +10,6 @@ import controllers.security.WrongCredentialsException;
 import io.jsonwebtoken.*;
 
 import models.DALException;
-import models.dao.BrugerDAO;
 import models.dao.DBBrugerDAO;
 import models.dao.interfaces.IBrugerDAO;
 import models.dto.BrugerDTO;

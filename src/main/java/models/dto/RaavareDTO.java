@@ -8,7 +8,6 @@ public class RaavareDTO {
     String raavareNavn;
     String leverandoer;
 
-    public RaavareDTO() {}
     public RaavareDTO(int raavareId, String raavareNavn, String leverandoer) {
         this.raavareId = raavareId;
         this.raavareNavn = raavareNavn;

@@ -77,7 +77,8 @@ public class WeightController implements Runnable {
                         //For at gøre testing nemmere har jeg lavet min og max til det her istedet.
                         double min = 0.0;
                         double max = 5.0;
-                        awaitOk("Afvej"); //TODO Hvad og hvormeget skal tilføjes
+                        String raavarenavn = "" + raavareDao.getRaavare(receptKompDTO.getRaavareId()).getRaavareNavn();
+                        awaitOk(receptKompDTO.getNomNetto()+"g af " + raavarenavn); //TODO Hvad og hvormeget skal tilføjes
                         do {
                             som.setMessage("K 3");
                             Thread.sleep(100);

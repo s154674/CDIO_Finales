@@ -24,19 +24,19 @@ public class ProduktBatchKompDAOTest {
 
     @Before
     public void setUp() throws Exception {
-    testPBK_DAO = new DBProduktBatchKompDAO();
-    testPBK_DTO = new ProduktBatchKompDTO(5, 5, 0.9, 4, 4);
-    testPBK_DAO.createProduktBatchKomp(testPBK_DTO);
+        testPBK_DAO = new DBProduktBatchKompDAO();
+        testPBK_DTO = new ProduktBatchKompDTO(5, 5, 0.9, 4, 4);
+        testPBK_DAO.createProduktBatchKomp(testPBK_DTO);
     }
 
     @After
     public void tearDown() throws Exception {
-    testPBK_DAO.deleteProduktBatchKomp(testPBK_DTO);
+        testPBK_DAO.deleteProduktBatchKomp(testPBK_DTO);
 
     }
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    private ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void notNull() throws Exception{
@@ -46,17 +46,30 @@ public class ProduktBatchKompDAOTest {
     }
 
     @Test
-    public void testCreatePBK() throws Exception{
+    public void testCreateAndGetPBK() throws Exception {
+        ProduktBatchKompDTO testPBK_DTO2 = testPBK_DAO.getProduktBatchKomp(5,5);
+        assertEquals(testPBK_DTO, testPBK_DTO2);
+        testPBK_DAO.deleteProduktBatchKomp(testPBK_DTO2);
     }
 
     @Test
-    public void testGetPBK() throws Exception {
-       System.out.println(testPBK_DAO.getProduktBatchKomp(2,5));
-       System.out.println(testPBK_DAO.getProduktBatchKompList());
-       System.out.println(testPBK_DAO.getProduktBatchKompList(2));
+    public void testUpdatePBK() throws Exception{
+        assertEquals(testPBK_DTO.getRbId(),5);
+
+        System.out.println(testPBK_DAO.getProduktBatchKompList());
+
+        testPBK_DTO.setOprId(3);
+        testPBK_DTO.setNetto(10);
+        testPBK_DTO.setTara(2);
+
+        testPBK_DAO.updateProduktBatchKomp(testPBK_DTO.getPbId(),testPBK_DTO.getRbId(),testPBK_DTO);
+
+        assertEquals(testPBK_DTO.getOprId(),3);
+        assertEquals(testPBK_DTO.getNetto(),10, 0);
+        assertEquals(testPBK_DTO.getTara(),2, 0);
+
+        System.out.println(testPBK_DAO.getProduktBatchKompList());
 
     }
-
-
 
 }

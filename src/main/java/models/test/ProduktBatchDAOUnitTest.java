@@ -35,7 +35,7 @@ public class ProduktBatchDAOUnitTest {
     }
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    private ExpectedException thrown = ExpectedException.none();
 
 
     @Test

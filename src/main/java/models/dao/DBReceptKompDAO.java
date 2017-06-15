@@ -20,7 +20,7 @@ public class DBReceptKompDAO implements IReceptKompDAO {
         try {
         ResultSet rs = conn.doQuery("SELECT * FROM receptkomponent WHERE recept_id = " + receptId + " AND raavare_id = " + raavareId + ";");
             if (!rs.first()) throw new DALException("receptkomponent med Recept ID " + receptId + ", der indeholder Raavare ID" + raavareId + " findes ikke");
-            return new ReceptKompDTO (rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getInt("tolerance"));
+            return new ReceptKompDTO (rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance"));
         }
         catch (SQLException e) {throw new DALException(e); }
     }
@@ -31,7 +31,7 @@ public class DBReceptKompDAO implements IReceptKompDAO {
         try{
         ResultSet rs = conn.doQuery("SELECT * FROM receptkomponent WHERE recept_id = " + receptId);
             while (rs.next()) {
-                list.add(new ReceptKompDTO(rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getInt("tolerance")));
+                list.add(new ReceptKompDTO(rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance")));
             }
         }
         catch (SQLException e) { throw new DALException(e); }

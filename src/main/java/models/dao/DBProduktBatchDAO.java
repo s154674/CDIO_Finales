@@ -14,7 +14,7 @@ package models.dao;
  * Created by Johan on 07-06-2017.
  */
 public class DBProduktBatchDAO implements IProduktBatchDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
     @Override
     public ProduktBatchDTO getProduktBatch(int pbId) throws DALException {
         try {

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Johan on 07-06-2017.
  */
 public class DBReceptKompDAO implements IReceptKompDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
     @Override
     public ReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException {
         try {

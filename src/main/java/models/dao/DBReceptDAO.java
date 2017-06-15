@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Johan on 07-06-2017.
  */
 public class DBReceptDAO implements IReceptDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
     @Override
     public ReceptDTO getRecept(int receptId) throws DALException {
         try {

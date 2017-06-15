@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Johan on 07-06-2017.
  */
 public class DBRaavareDAO implements IRaavareDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
     @Override
     public RaavareDTO getRaavare(int raavareId) throws DALException {
         try {

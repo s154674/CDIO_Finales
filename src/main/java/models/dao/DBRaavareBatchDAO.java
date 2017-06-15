@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Johan on 07-06-2017.
  */
 public class DBRaavareBatchDAO implements IRaavareBatchDAO {
-    ImprovedConnector conn = new ImprovedConnector();
+    ImprovedConnector conn = ImprovedConnector.getConnI();
     @Override
     public RaavareBatchDTO getRaavareBatch(int rbId) throws DALException {
         try {

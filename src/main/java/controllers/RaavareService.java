@@ -4,7 +4,6 @@ import controllers.security.Secured;
 import models.DALException;
 import models.dao.DBRaavareDAO;
 import models.dao.interfaces.IRaavareDAO;
-import models.dao.RaavareDAO;
 import models.dto.RaavareDTO;
 
 import javax.ws.rs.*;

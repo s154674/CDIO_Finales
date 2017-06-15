@@ -44,7 +44,7 @@ public class DBReceptKompDAO implements IReceptKompDAO {
         try {
         ResultSet rs = conn.doQuery("SELECT * FROM receptkomponent");
             while (rs.next()) {
-                list.add(new ReceptKompDTO(rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getInt("tolerance")));
+                list.add(new ReceptKompDTO(rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance")));
             }
             rs.close();
         }

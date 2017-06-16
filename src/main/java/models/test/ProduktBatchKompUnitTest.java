@@ -36,7 +36,7 @@ public class ProduktBatchKompUnitTest {
     }
 
     @Rule
-    private ExpectedException thrown = ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void notNull() throws Exception{

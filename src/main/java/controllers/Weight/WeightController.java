@@ -15,8 +15,7 @@ public class WeightController implements Runnable {
     private SocketMessage sim = new SocketMessage();
     private SocketMessage som = new SocketMessage();
     private Client c = new Client(sim, som);
-    private int temp_ra_id, bruger_id, pb_id;
-    private String temp;
+    private int bruger_id, pb_id;
     private IProduktBatchDAO produktBatchDao = new DBProduktBatchDAO();
     private IReceptDAO receptDao = new DBReceptDAO();
     private IBrugerDAO brugerDao = new DBBrugerDAO();
@@ -70,14 +69,12 @@ public class WeightController implements Runnable {
                     tara();
                     Thread.sleep(100);
 
+                    //Det interval som afvejningen skal ligge inden for afvejes
+                    double min = receptKompDTO.getNomNetto()-((receptKompDTO.getTolerance()*receptKompDTO.getNomNetto()));
+                    double max = receptKompDTO.getNomNetto()+((receptKompDTO.getTolerance()*receptKompDTO.getNomNetto()));
 
-                    //double min = receptKompDTO.getNomNetto()-(receptKompDTOto.getTolerance()*receptKompDTO.getNomNetto());
-                    //double max = receptKompDTO.getNomNetto()+(receptKompDTOto.getTolerance()*receptKompDTO.getNomNetto());
-                    //For at gøre testing nemmere har jeg lavet min og max til det her istedet.
-                    double min = 0.0;
-                    double max = 5.0;
                     raavare = raavareDao.getRaavare(receptKompDTO.getRaavareId());
-                    awaitOk(receptKompDTO.getNomNetto() + "g af " + raavare.getRaavareNavn()); //TODO Hvad og hvormeget skal tilføjes
+                    awaitOk(receptKompDTO.getNomNetto() + "g af " + raavare.getRaavareNavn());
                     do {
                     rbid = askForId("Indtast RBID");
                     } while (raavareBatchDao.getRaavareBatch(rbid).getRaavareId()!=raavare.getRaavareId());
@@ -133,9 +130,13 @@ public class WeightController implements Runnable {
                 Thread.sleep(100);
             } catch (InterruptedException e) {/*Denne er tom med vilje */}
             if (sim.getMessage().split(" ")[0].equals("RM20") && sim.getMessage().split(" ")[1].equals("C")) {
+                accepted = true;
+                sim.setMessage("");
                 throw new CancelException("Du afbroed afvejningen");
             }
             if (sim.getMessage().split(" ")[0].equals("RM20") && (sim.getMessage().split(" ")[1].equals("L") || sim.getMessage().split(" ")[1].equals("I"))) {
+                accepted = true;
+                sim.setMessage("");
                 throw new CancelException("Proev igen");
             }
             if (sim.getMessage().split(" ")[0].equals("RM20") && sim.getMessage().split(" ")[1].equals("A")) {
@@ -146,7 +147,6 @@ public class WeightController implements Runnable {
     }
 
     private int askForId(String txt) throws CancelException {
-        //TODO Hvis man ikke for et tal skal det håndteres
         int id = 0;
         boolean accepted;
         som.setMessage("RM20 3 \"" + txt + "\" \"\" \"\"");
@@ -156,10 +156,18 @@ public class WeightController implements Runnable {
                 Thread.sleep(100);
             } catch (InterruptedException e) {/*Denne er tom med vilje */}
             if (sim.getMessage().split(" ")[0].equals("RM20") && sim.getMessage().split(" ")[1].equals("C")) {
+                accepted = true;
+                sim.setMessage("");
                 throw new CancelException("Du afbroed afvejningen");
             }
             if (sim.getMessage().split(" ")[0].equals("RM20") && (sim.getMessage().split(" ")[1].equals("L") || sim.getMessage().split(" ")[1].equals("I"))) {
+                accepted = true;
+                sim.setMessage("");
                 throw new CancelException("Proev igen");
+            }
+            if (sim.getMessage().split(" ")[0].equals("RM20") && sim.getMessage().split(" ")[1].equals("A") && sim.getMessage().split(" ")[2].equals("\"\"")) {
+                sim.setMessage("");
+                som.setMessage("RM20 3 \"" + "Indtast gyldigt ID" + "\" \"\" \"\"");
             }
             if (sim.getMessage().split(" ")[0].equals("RM20") && sim.getMessage().split(" ")[1].equals("A")) {
                 id = Integer.parseInt(sim.getMessage().substring(8, sim.getMessage().length() - 1));
@@ -206,6 +214,7 @@ public class WeightController implements Runnable {
             } catch (InterruptedException e) {/*Denne er tom med vilje */}
             if (sim.getMessage().split(" ")[0].equals("S") && sim.getMessage().split(" ")[1].equals("S")) {
                 temp = Double.parseDouble(sim.getMessage().substring(9, 14));
+                temp = temp*1000; //kg til g
                 sim.setMessage("");
                 weightRegistered = true;
             }
@@ -215,7 +224,6 @@ public class WeightController implements Runnable {
 
     private void errorMSG(String txt) {
         boolean accepted;
-        System.out.println(txt);
         som.setMessage("RM20 3 \"" + txt + "\" \"\" \"\"");
         accepted = false;
 

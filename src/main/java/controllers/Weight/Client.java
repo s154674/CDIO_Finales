@@ -42,7 +42,6 @@ public class Client implements Runnable {
                     do {
                         br2 = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         sim.setMessage(br2.readLine());
-                        System.out.println("Server says : : : " + sim.getMessage());
                     } while (!sim.getMessage().equals("END"));
                 }
             } catch (Exception e) {

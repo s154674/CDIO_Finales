@@ -61,7 +61,20 @@ public class BrugerService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("oprId") Integer oprId, BrugerDTO opr) {
         try {
-            brugerDao.updateBruger(oprId, opr);
+            boolean wasAdmin = brugerDao.getBruger(oprId).getRoller().contains("Administrator");
+            boolean isAdminAfter = opr.getRoller().contains("Administrator");
+            boolean isLastAdmin = true;
+            int sum = 0;
+            for (BrugerDTO brugerDTO : brugerDao.getBrugerList()) {
+                if (brugerDTO.getRoller().contains("Administrator")){
+                    sum++;
+                }
+            }
+            if (sum>1)
+                isLastAdmin = false;
+            if (!(wasAdmin && isLastAdmin && !isAdminAfter)){
+                brugerDao.updateBruger(oprId, opr);
+            }
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -72,7 +85,17 @@ public class BrugerService {
     @Secured({"Administrator"})
     public void delete(@PathParam("oprId") Integer oprId) {
         try {
-            brugerDao.deleteBruger(brugerDao.getBruger(oprId));
+            BrugerDTO bruger = brugerDao.getBruger(oprId);
+            boolean isAdmin = false;
+            for (String rolle : bruger.getRoller()) {
+                if (rolle.equals("Administrator")){
+                    isAdmin = true;
+                }
+            }
+
+            if (!isAdmin) {
+                brugerDao.deleteBruger(brugerDao.getBruger(oprId));
+            }
         } catch (DALException e) {
             e.printStackTrace();
         }

@@ -8,7 +8,7 @@ produktbatchRediger = $("#produktbatch-rediger");
 produktbatchRedigerFormular = produktbatchRediger.find("#produktbatch-rediger-formular");
 
 function opdaterProduktbatcher(roller){
-    if (roller.includes("Farmaceut", "Vaerkfoerer")) {
+    if (roller.includes("Farmaceut") || roller.includes("Vaerkfoerer")) {
 
         $.ajax({
             type: "get",
@@ -32,9 +32,6 @@ function opdaterProduktbatcher(roller){
     }
 }
 function visProduktbatcher() {
-    console.log("produktbatcher:");
-    console.log(window.produktbatcher);
-
     // Vis i tabel
     produktbatchVisTabel.empty();
     $.each(window.produktbatcher, function(i, produktbatch){

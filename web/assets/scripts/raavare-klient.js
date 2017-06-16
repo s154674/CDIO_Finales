@@ -32,8 +32,6 @@ function opdaterRaavarer(roller){
     }
 }
 function visRaavarer() {
-    console.log("raavarer:");
-    console.log(window.raavarer);
 
     // Vis i tabel
     raavareVisTabel.empty();
@@ -63,7 +61,7 @@ raavareNyFormular.submit(function(event ) {
     event.preventDefault();
 
     raavare = raavareNyFormular.serializeJSON();
-
+    console.log(raavare);
     $.ajax({
         url: "rest/raavarer",
         method: 'POST',
@@ -74,6 +72,9 @@ raavareNyFormular.submit(function(event ) {
             visRaavarer();
             raavareNy.foundation('close');
             raavareNyFormular.trigger('reset');
+        },
+        error: function (data) {
+            notify("alert","Kunne ikke oprette råvare");
         },
         beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + localStorage.getItem("jwt")); }
     });

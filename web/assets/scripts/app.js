@@ -1,9 +1,13 @@
 /**
  * Created by emilbonnekristiansen on 09/06/2017.
  */
+notificationPane = $("#notification-pane");
 function notify(type, txt) {
-    console.log(type+": "+txt);
+    notification = $("<div style='display: none;' class='notification callout "+type+"' data-closable><p>"+txt+"</p><button class='close-button' aria-label='Dismiss alert' type='button' data-close> <span aria-hidden='true'>&times;</span> </button></div>");
+    notification.prependTo(notificationPane).fadeIn().delay(5000).fadeOut();
+    //notification.remove();
 }
+
 
 function opdaterAlt(){
 

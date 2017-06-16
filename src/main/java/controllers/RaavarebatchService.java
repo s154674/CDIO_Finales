@@ -15,7 +15,7 @@ import java.util.List;
  * Created by emilbonnekristiansen on 12/06/2017.
  */
 @Path("/raavarebatcher")
-@Secured({"Vaerkfoerer"})
+@Secured({"Farmaceut", "Vaerkfoerer"})
 public class RaavarebatchService {
     static IRaavareBatchDAO raavareBatchDao = new DBRaavareBatchDAO();
 

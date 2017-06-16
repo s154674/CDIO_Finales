@@ -15,7 +15,7 @@ import java.util.List;
  * Created by emilbonnekristiansen on 12/06/2017.
  */
 @Path("/produktbatcher")
-@Secured({"Vaerkfoerer"})
+@Secured({"Farmaceut", "Vaerkfoerer"})
 public class ProduktbatchService {
     static IProduktBatchDAO produktBatchDao = new DBProduktBatchDAO();
 

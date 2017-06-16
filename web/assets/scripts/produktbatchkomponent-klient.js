@@ -2,7 +2,7 @@
  * Created by emilbonnekristiansen on 10/06/2017.
  */
 function opdaterProduktbatchkomponenter(roller){
-    if (roller.includes("Farmaceut", "Vaerkfoerer")) {
+    if (roller.includes("Farmaceut") || roller.includes("Vaerkfoerer")) {
         $.ajax({
             type: "get",
             url: 'rest/produktbatchkomponenter',
@@ -25,6 +25,5 @@ function opdaterProduktbatchkomponenter(roller){
     }
 }
 function visProduktbatchkomponenter() {
-    console.log("produktbatchkomponenter:");
-    console.log(window.produktbatchkomponenter);
+
 }

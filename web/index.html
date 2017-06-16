@@ -7,6 +7,7 @@
             <link rel="stylesheet" href="assets/vendor/foundation.css" />
             <link rel="stylesheet" href="assets/vendor/foundation-icons/foundation-icons.css" />
             <link rel="stylesheet" href="assets/stylesheets/design.css">
+            <link rel="shortcut icon" type="image/png" href="assets/images/favicon_big.png"/>
         </head>
     <body>
         <div class="top-bar">
@@ -22,7 +23,6 @@
                         <span class="label secondary Farmaceut">Farmaceut</span>
                         <span class="label success Vaerkfoerer">Værkfører</span>
                         <span class="label warning Laborant">Laborant</span>
-                        <a class="non-loggedin" data-open="login-modal">Log ind</a>
                         <a id="user-icon" class="Administrator Farmaceut Vaerkfoerer Laborant " data-open="konto-modal"><i class="fi-torso"></i></a>
                     </div>
                 </div>
@@ -31,30 +31,6 @@
         <div class="row">
             <div id="main" class="small-12 column">
                 <div id="session-administration">
-
-
-
-                    <div class="reveal tiny" id="login-modal" data-reveal data-close-on-click="true" data-animation-in="slide-in-up" data-animation-out="slide-out-down">
-                        <h2>Log ind</h2>
-                        <form id="login" name="login" action="rest/login" method="post">
-                            <div class="row">
-                                <label>ID
-                                    <input name="oprId" type="number" placeholder="1-9999">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>password
-                                    <input name="password" type="password" placeholder="password">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <input class="button expanded success" type="submit" value="Login">
-                            </div>
-                        </form>
-                        <button class="close-button" data-close aria-label="Close modal" type="button">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
 
 
 
@@ -79,6 +55,35 @@
                         </button>
                     </div>
 
+                </div>
+                <div class="row non-loggedin">
+                    <div class="column small-12 medium-6 large-4 small-centered">
+                        <div class="callout large radius">
+                            <h2 class="text-center">Log ind</h2>
+                            <form id="login" name="login" action="rest/login" method="post">
+                                <div class="row">
+                                    <label>ID
+                                        <input name="oprId" type="number" placeholder="ID" value="4">
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label>Adgangskode
+                                        <input name="password" type="password" placeholder="Adgangskode" value="root">
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <input class="button expanded success" type="submit" value="Login">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row Laborant">
+                    <div class="column small-12 medium-6 large-4 small-centered">
+                        <div class="callout large warning">
+                            <p>Du kan foretage en afvejning på vægten når du er klar</p>
+                        </div>
+                    </div>
                 </div>
                 <div id="bruger-administration" class="Administrator">
                     <!--Bruger vis-->
@@ -320,6 +325,7 @@
 
                     <div id="recept-receptkomponent" class="reveal large" data-reveal data-close-on-click="true" data-animation-in="slide-in-up" data-animation-out="slide-out-down">
                         <h2 id="recept-receptkomponent-receptnavn">Receptens navn</h2>
+                        <p><a id="recept-receptkomponent-ny" href="#">Tilføj ny komponent</a></p>
                         <div id="recept-receptkomponent-vis">
                             <div id="recept-receptkomponent-vis-grid" class="row small-up-2 medium-up-3 large-up-4">
                                 <div class="column column-block">
@@ -343,91 +349,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-
-                <div id="receptkomponent-administration" class="Farmaceut">
-                    <h2>Receptkomponent Administration</h2>
-                    <p><a data-open="receptkomponent-ny">Opret ny receptkomponent</a></p>
-                    <div id="receptkomponent-ny" class="reveal tiny" data-reveal data-close-on-click="true" data-animation-in="slide-in-up" data-animation-out="slide-out-down">
-                        <h2>Opret receptkomponent</h2>
-                        <form id="receptkomponent-ny-formular" action="rest/receptkomponenter" method="post">
-                            <div class="row">
-                                <label>ReceptID
-                                    <input name="receptId" type="number" placeholder="1-9999">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>Råvare
-                                    <select name="raavareId">
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>NomNetto
-                                    <input name="nomNetto" type="number" placeholder="vægt">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>Tolerance
-                                    <input name="tolerance" type="number" placeholder="vægt">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <input class="button expanded success" type="submit" value="Opret receptkomponent">
-                            </div>
-                        </form>
-                    </div>
-                    <div id="receptkomponent-vis">
-                        <table id="receptkomponent-vis-tabel">
-                            <thead>
-                                <tr>
-                                    <th width="50">ReceptID</th>
-                                    <th width="50">RåvareID</th>
-                                    <th>NomNetto</th>
-                                    <th>Tolerance</th>
-                                    <th width="50"></th>
-                                    <th width="50"></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="receptkomponent-rediger" class="reveal small" data-reveal data-close-on-click="true" data-animation-in="slide-in-up" data-animation-out="slide-out-down">
-                        <h2>Redigér receptkomponent</h2>
-                        <form id="receptkomponent-rediger-formular" action="rest/receptkomponenter/{receptId}+{raavareId}" method="post">
-                            <div class="row">
-                                <label>ReceptID
-                                    <input name="receptId" type="number" placeholder="1-9999">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>Råvare
-                                    <select name="raavareId">
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>NomNetto
-                                    <input name="nomNetto" type="number" placeholder="vægt">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label>Tolerance
-                                    <input name="tolerance" type="number" placeholder="vægt">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <input class="button expanded success" type="submit" value="Opdatér receptkomponent">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
-
-                <div id="raavarebatch-administration" class="Vaerkfoerer">
+                <div id="raavarebatch-administration" class="Farmaceut Vaerkfoerer">
                     <h2>Råvarebatch administration</h2>
                     <p><a data-open="raavarebatch-ny">Opret ny råvarebatch</a></p>
                     <div id="raavarebatch-ny" class="reveal tiny" data-reveal data-close-on-click="true" data-animation-in="slide-in-up" data-animation-out="slide-out-down">
@@ -493,14 +417,14 @@
                         </form>
                     </div>
                 </div>
-                <div id="produktbatch-administration" class="Vaerkfoerer">
+                <div id="produktbatch-administration" class="Farmaceut Vaerkfoerer">
                     <h2>Produktbatch administration</h2>
                     <p><a data-open="produktbatch-ny">Opret ny produktbatch</a></p>
                     <div id="produktbatch-ny" class="reveal tiny" data-reveal data-close-on-click="true" data-animation-in="slide-in-up" data-animation-out="slide-out-down">
                         <h2>Opret produktbatch</h2>
                         <form id="produktbatch-ny-formular" action="rest/produktbatcher" method="post">
                             <div class="row">
-                                <label>rbID
+                                <label>pbID
                                     <input name="pbId" type="number" placeholder="1-9999">
                                 </label>
                             </div>
@@ -538,7 +462,7 @@
                         <h2>Redigér produktbatch</h2>
                         <form id="produktbatch-rediger-formular" action="rest/produktbatcher/{pbId}" method="post">
                             <div class="row">
-                                <label>rbID
+                                <label>pbID
                                     <input name="pbId" type="number" placeholder="1-9999">
                                 </label>
                             </div>
@@ -563,6 +487,11 @@
 
             </div>
         </div>
+
+
+        <div id="notification-pane">
+        </div>
+
 
         <script type="text/javascript" src="assets/vendor/jquery.js"></script>
         <script type="text/javascript" src="assets/vendor/jquery.serializejson.min.js"></script>

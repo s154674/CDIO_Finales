@@ -5,7 +5,6 @@ function parseJwt(token) {
     return JSON.parse(window.atob(base64));
 }
 
-loginModal = $("#login-modal");
 loginFormular = $("#login");
 kontoModal = $("#konto-modal");
 kontoOversigt = $("#konto-information");
@@ -40,7 +39,6 @@ loginFormular.submit(function(event ) {
             opdaterAlt();
             reloadView();
             loginFormular.trigger('reset');
-            loginModal.foundation('close');
         }
     });
 });
@@ -55,7 +53,7 @@ logudKnap.click(function(event ) {
 
 });
 
-// log ud
+// Se bruger
 $("#user-icon").click(function(event ) {
 
     $.ajax( {

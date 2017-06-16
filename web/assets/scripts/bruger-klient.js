@@ -27,8 +27,6 @@ function opdaterBrugere(roller){
 }
 
 function visBrugere(){
-    console.log("brugere:");
-    console.log(window.brugere);
 
     // brugerskema
     brugerSkema.empty();
@@ -52,8 +50,7 @@ opretBrugerFormular.submit(function(event ) {
         data: JSON.stringify(bruger),
         contentType: "application/json",
         success: function (data) {
-            window.brugere.push(bruger);
-            visBrugere();
+            opdaterAlt();
             opretBrugerModal.foundation('close');
             opretBrugerFormular.trigger('reset');
         },
@@ -100,7 +97,7 @@ opretBrugerFormular.submit(function(event ) {
             success: function (data) {
                 redigerBrugerModal.foundation('close');
                 redigerBrugerFormular.trigger('reset');
-                opdaterBrugere();
+                opdaterAlt();
             },
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + localStorage.getItem("jwt")); }
         });
@@ -119,7 +116,7 @@ brugerSkema.on('click', "tr td .delete-icon", function (event) {
         data: bruger,
         contentType: "application/json",
         success: function (data) {
-            opdaterBrugere();
+            opdaterAlt();
         },
         beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + localStorage.getItem("jwt")); }
     });

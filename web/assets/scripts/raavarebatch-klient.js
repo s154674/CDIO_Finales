@@ -8,7 +8,7 @@ raavarebatchRediger = $("#raavarebatch-rediger");
 raavarebatchRedigerFormular = raavarebatchRediger.find("#raavarebatch-rediger-formular");
 
 function opdaterRaavarebatcher(roller){
-    if (roller.includes("Farmaceut", "Vaerkfoerer")) {
+    if (roller.includes("Farmaceut") || roller.includes("Vaerkfoerer")) {
         $.ajax({
             type: "get",
             url: 'rest/raavarebatcher',
@@ -31,8 +31,6 @@ function opdaterRaavarebatcher(roller){
     }
 }
 function visRaavarebatcher() {
-    console.log("raavarebatcher:");
-    console.log(window.raavarebatcher);
 
     // Vis i tabel
     raavarebatchVisTabel.empty();

@@ -58,6 +58,7 @@
 
 #raavare-administration h2, #raavare-administration p,
 #recept-administration h2, #recept-administration p,
+#recept-receptkomponent h2, #recept-receptkomponent p,
 #raavarebatch-administration h2, #raavarebatch-administration p,
 #produktbatch-administration h2, #produktbatch-administration p,
 #receptkomponent-administration h2, #receptkomponent-administration p{
@@ -74,10 +75,15 @@
 }
 
 
-
-
+#recept-receptkomponent-vis {
+    margin-top: 20px;
+}
 #recept-receptkomponent-vis-grid .callout {
     padding: 0;
+}
+
+#recept-receptkomponent-vis-grid .callout .edit-icon.active {
+    color:grey;
 }
 
 #recept-receptkomponent-vis-grid .callout h5 {
@@ -90,4 +96,19 @@
 #recept-receptkomponent-vis-grid .callout input, #recept-receptkomponent-vis-grid .callout .input-group-label {
     border-left: 0;
     border-right: 0;
+}
+#recept-receptkomponent-vis-grid .callout .rediger input[type='submit'] {
+    display: none;
+}
+
+
+#notification-pane {
+    top: 70px;
+    right: 10px;
+    position: fixed;
+    width: 355px;
+}
+
+#notification-pane .notification {
+    display:none;
 }

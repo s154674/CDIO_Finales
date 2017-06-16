@@ -13,12 +13,12 @@ import java.util.List;
 
 
 @Path("/raavarer")
-@Secured({"Farmaceut","Administrator"})
+@Secured({"Farmaceut"})
 public class RaavareService {
     static IRaavareDAO raavareDao = new DBRaavareDAO();
 
     @GET
-    @Secured({"Farmaceut","Administrator", "Vaerkfoerer"})
+    @Secured({"Farmaceut", "Vaerkfoerer"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<RaavareDTO> index() {
         try {

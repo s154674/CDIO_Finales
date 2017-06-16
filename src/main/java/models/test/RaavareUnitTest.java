@@ -39,9 +39,9 @@ public class RaavareUnitTest {
 
     @Test
     public void testGetRaavareAndCreateRaavare() throws Exception{
-        RaavareDTO testRaavareDAO2 = testRaavareDAO.getRaavare(99);
-        assertEquals(testRaavareDAO2,testRaavareDTO);
-        testRaavareDAO.deleteRaavare(testRaavareDAO2);
+        RaavareDTO testRaavareDTO2 = testRaavareDAO.getRaavare(99);
+        assertEquals(testRaavareDTO2,testRaavareDTO);
+        testRaavareDAO.deleteRaavare(testRaavareDTO2);
     }
 
     @Test
